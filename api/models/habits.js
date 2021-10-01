@@ -1,0 +1,44 @@
+const db = require('../dbConfig');
+
+class Habit {
+    constructor(data) {
+        this.userId = data.userId;
+        this.habitName = data.habitName;
+        this.frequency = data.frequency;
+        this.startDate = data.startDate;
+        this.targetDate = data.targetDate;
+        this.habitType = dta.habitType;
+    }
+
+    static findById(userId){
+        return new Promise (async (resolve, reject) => {
+            try {
+
+            } catch (err) {
+                reject('Habit not found')
+            }
+        });
+    };
+
+    static create(data){
+        return new Promise (async (resolve, reject) => {
+            try {
+
+            } catch (err) {
+                reject("couldn't create Habit")
+            }
+        });
+    };
+
+    destroy(){
+        return new Promise (async (resolve, reject) => {
+            try {
+
+            } catch (err) {
+                reject("couldn't delete habit")
+            }
+        })
+    };
+};
+
+module.exports = Habit;
