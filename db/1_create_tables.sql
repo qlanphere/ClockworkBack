@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS habits;
 
 CREATE TABLE users (
     userId serial PRIMARY KEY,
-    userName varchar(50),
+    userName varchar(50) UNIQUE,
     badgePoints int
 );
 

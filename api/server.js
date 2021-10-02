@@ -8,6 +8,7 @@ server.use(express.json());
 //routes
 const usersRoutes = require('./routes/users.js')
 const habitsRoutes = require('./routes/habits.js')
+
 server.use('/users', usersRoutes)
 server.use('/habits', habitsRoutes)
 
