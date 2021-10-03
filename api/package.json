@@ -9,5 +9,17 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.13"
-  }
+  },
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "name": "api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

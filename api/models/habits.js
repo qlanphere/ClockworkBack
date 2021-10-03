@@ -7,7 +7,7 @@ class Habit {
         this.frequency = data.frequency;
         this.startDate = data.startDate;
         this.targetDate = data.targetDate;
-        this.habitType = dta.habitType;
+        this.habitType = data.habitType;
     }
 
     static findById(userId){

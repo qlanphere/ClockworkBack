@@ -19,5 +19,5 @@ CREATE TABLE habits (
     frequency int,
     startDate date,
     targetData date,
-    habitType boolean,
+    habitType boolean
 )

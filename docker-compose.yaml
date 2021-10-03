@@ -30,5 +30,6 @@ services:
       - POSTGRES_DB=habits
       - POSTGRES_USER=futureproof
       - POSTGRES_PASSWORD=habitpass
+
 volumes:
   dbdata:
