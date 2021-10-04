@@ -3,8 +3,8 @@ const Habit = require('../models/habits.js')
 
 async function index(req, res){
     try{
-        const habits = await Habit.all
-        res.json({habits})
+        const habits = await Habit.all;
+        res.json({habits});
     }
     catch (err) {
         res.status(500).json([err])

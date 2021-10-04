@@ -2,19 +2,19 @@ const db = require('../dbConfig');
 
 class Habit {
     constructor(data) {
-        this.habitId = data.habitId;
-        this.habitName = data.habitName;
+        this.habitId = data.habitid;
+        this.habitName = data.habitname;
         this.frequency = data.frequency;
-        this.startDate = data.startDate;
-        this.targetDate = data.targetDate;
-        this.habitType = data.habitType;
+        this.startDate = data.startdate;
+        this.targetDate = data.targetdate;
+        this.habitType = data.habittype;
     }
 
     static get all() {
         return new Promise (async (resolve, reject) => {
             try{
-                const result = await db.query('select * from habits;');
-                // console.log(result.rows[0])
+                const result = await db.query('select * from habits;')
+                console.log(result)
                 const habits = result.rows.map(h => new Habit(h));
                 resolve(habits)
             }
@@ -41,15 +41,11 @@ class Habit {
     static create(data){
         return new Promise (async (resolve, reject) => {
             try {
-<<<<<<< HEAD
                 // console.log();
-                let habitData = await db.query('insert into habits (habitName, frequency, startDate, targetDate, habitType) values ($1,$2,$3,$4,$5) returning *;', [data.habitName, data.frequency,data.startDate,data.targetDate,data.habitType]);
-                // console.log(habitData.rows[0]);
-=======
-                let habitData = await db.query('insert into habits (habitName) values ($1) returning *;', [name.habitName]);
->>>>>>> 1d4fec9af435a59b5da15a183c64025e9385d700
+                let habitData = await db.query('insert into habits (habitName, frequency, startDate, targetDate, habitType) values ($1,$2,$3,$4,$5) returning *;', [data.habitName, data.frequency, data.startDate, data.targetDate, data.habitType]);
+                console.log(habitData);
                 let newHabit = new Habit(habitData.rows[0]); 
-                console.log(newHabit)
+                
                 resolve(newHabit)
             } catch (err) {
                 reject("couldn't create Habit")
