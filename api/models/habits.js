@@ -13,10 +13,11 @@ class Habit {
     static get all() {
         return new Promise (async (resolve, reject) => {
             try{
-                const result = await db.query('select * from habits')
-                const habits = result.rows.map(h => ({habitName: h.habitName}))
+                const result = await db.query('select * from habits;');
+                const habits = result.rows.map(h => ({habitName: h.habitName}));
             }
             catch(err) {
+
 
             }
         })
@@ -25,7 +26,9 @@ class Habit {
     static findById(userId){
         return new Promise (async (resolve, reject) => {
             try {
-
+                let habitData = await db.query('select * from habits where id =$1;', [habitId]);
+                let habit = new Habit(habitData.rows[0]);
+                resolve(habit)
             } catch (err) {
                 reject('Habit not found')
             }
