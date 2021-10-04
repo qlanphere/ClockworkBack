@@ -1,8 +1,18 @@
 const User = require('../models/users')
 
-async function show (req, res) {
+async function show(req, res) {
     try {
-        const user = await User.findById(req.params.id);
+        console.log("hello inside show")
+        const user = await User.all;
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(404).json({err});
+    }
+};
+
+async function showIndex(req, res) {
+    try {
+        const user = await User.findById(parseInt(req.params.id));
         res.status(200).json(user);
     } catch (err) {
         res.status(404).json({err});
@@ -18,4 +28,4 @@ async function show (req, res) {
 //     }
 // };
 
-module.exports = { show };
+module.exports = { show,showIndex };

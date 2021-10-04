@@ -2,9 +2,26 @@ const db = require('../dbConfig');
 
 class User {
     constructor(data){
-        this.userId = data.userId;
-        this.userName = data.userName;
-        this.badgePoints = data.badgePoints;
+        this.userId = data.userid;
+        this.userName = data.username;
+        this.passwordHash = data.passwordhash;
+        this.badgePoints = data.badgepoints;
+    }
+
+    static get all() {
+        return new Promise (async (resolve, reject) => {
+            try{
+                console.log("hello all")
+                const result = await db.query('select * from users;');
+                console.log("middle of all function" + result.rows[0]);
+                const user = result.rows.map(u => new User(u));
+                console.log(user)
+                resolve(user);
+            }
+            catch(err) {
+                console.error();
+            }
+        })
     }
 
     static findById(id) {
@@ -22,7 +39,9 @@ class User {
     static create(data) {
         return new Promise(async (resolve, reject) => {
             try {
-                let result = await db.query("INSERT INTO users (userName, badgePoints) VALUES ($1, $2) RETURNING *;", [data.userName, data.badgePoints]);
+                console.log("user" + data.userName);
+                console.log("pass" + data.passwordHash);
+                let result = await db.query("INSERT INTO users (userName,passwordHash,badgePoints) VALUES ($1, $2, $3) RETURNING *;", [data.userName, data.passwordHash,0]);
                 let newUser = new User(result.rows[0]);
                 resolve(newUser);
             } catch (err) {
