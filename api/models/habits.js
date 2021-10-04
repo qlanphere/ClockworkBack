@@ -34,11 +34,12 @@ class Habit {
             }
         });
     };
-
-    static create(data){
+    // create(habitName) just using the name for now for simplicity and to check if it works 
+    static create(habitName){
         return new Promise (async (resolve, reject) => {
             try {
-
+                let habitData = await db.query('insert into habits (habitName) values ($1) returning *;', [habitName]);
+                let newHabit = new Habit(habitData.rows[0]); 
             } catch (err) {
                 reject("couldn't create Habit")
             }
