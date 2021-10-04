@@ -23,7 +23,7 @@ class Habit {
         })
     }
 
-    static findById(userId){
+    static findById(habitId){
         return new Promise (async (resolve, reject) => {
             try {
                 let habitData = await db.query('select * from habits where id =$1;', [habitId]);
@@ -40,6 +40,7 @@ class Habit {
             try {
                 let habitData = await db.query('insert into habits (habitName) values ($1) returning *;', [habitName]);
                 let newHabit = new Habit(habitData.rows[0]); 
+                resolve(newHabit)
             } catch (err) {
                 reject("couldn't create Habit")
             }
@@ -49,7 +50,8 @@ class Habit {
     destroy(){
         return new Promise (async (resolve, reject) => {
             try {
-
+                await db.query('delete from habits where habitId = $1;', [this.habitId]);
+                resolve('Habit was deleted')
             } catch (err) {
                 reject("couldn't delete habit")
             }
