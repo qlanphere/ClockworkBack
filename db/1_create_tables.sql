@@ -22,4 +22,4 @@ CREATE TABLE habits (
     targetDate date,
     habitType boolean,
     userId INT
-)
+);
