@@ -2,7 +2,7 @@ const Habit = require('../models/habit.js')
 
 async function show(req, res) {
     try {
-
+        
     } catch (err) {
         res.status(500).send(err)
     };

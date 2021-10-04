@@ -4,20 +4,22 @@ DROP TABLE IF EXISTS habits;
 
 CREATE TABLE users (
     userId serial PRIMARY KEY,
-    userName varchar(50) UNIQUE,
     badgePoints int
 );
 
 CREATE TABLE loginTable (
-    userId serial PRIMARY KEY,
-    passwordHash varchar(50)
+    loginId serial PRIMARY KEY,
+    userName varchar(50) UNIQUE,
+    passwordHash varchar(50),
+    userId INT
 );
 
 CREATE TABLE habits (
-    userId serial PRIMARY KEY,
+    habitId serial PRIMARY KEY,
     habitName varchar(50),
     frequency int,
     startDate date,
-    targetData date,
+    targetDate date,
     habitType boolean,
+    userId INT
 )

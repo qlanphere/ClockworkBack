@@ -2,12 +2,12 @@ const db = require('../dbConfig');
 
 class Habit {
     constructor(data) {
-        this.userId = data.userId;
+        this.habitId = data.habitId;
         this.habitName = data.habitName;
         this.frequency = data.frequency;
         this.startDate = data.startDate;
         this.targetDate = data.targetDate;
-        this.habitType = dta.habitType;
+        this.habitType = data.habitType;
     }
 
     static findById(userId){
