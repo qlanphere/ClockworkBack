@@ -14,7 +14,7 @@ class Habit {
         return new Promise (async (resolve, reject) => {
             try{
                 const result = await db.query('select * from habits;')
-                console.log(result)
+                // console.log(result)
                 const habits = result.rows.map(h => new Habit(h));
                 resolve(habits)
             }
@@ -26,10 +26,12 @@ class Habit {
         })
     }
 
-    static findById(habitId){
+    static findById(id){
         return new Promise (async (resolve, reject) => {
+            
             try {
-                let habitData = await db.query('select * from habits where habitId =$1;', [habitId]);
+                let habitData = await db.query('select * from habits where habitId =$1;', [id]);
+                
                 let habit = new Habit(habitData.rows[0]);
                 resolve(habit)
             } catch (err) {
@@ -43,7 +45,7 @@ class Habit {
             try {
                 // console.log();
                 let habitData = await db.query('insert into habits (habitName, frequency, startDate, targetDate, habitType) values ($1,$2,$3,$4,$5) returning *;', [data.habitName, data.frequency, data.startDate, data.targetDate, data.habitType]);
-                console.log(habitData);
+                // console.log(habitData);
                 let newHabit = new Habit(habitData.rows[0]); 
                 
                 resolve(newHabit)
@@ -55,6 +57,7 @@ class Habit {
 
     destroy(){
         return new Promise (async (resolve, reject) => {
+            console.log(this.habitId)
             try {
                 await db.query('delete from habits where habitId = $1;', [this.habitId]);
                 resolve('Habit was deleted')

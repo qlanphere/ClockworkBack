@@ -15,7 +15,7 @@ async function index(req, res){
 
 async function show(req, res) {
     try {
-        const habit = await Habit.findById(parseInt(req.params.habitId));
+        const habit = await Habit.findById(parseInt(req.params.id));
         res.json(habit)
     } catch (err) {
         res.status(404).send(err)
@@ -33,8 +33,9 @@ async function create (req, res) {
 
 async function destroy (req, res) {
     try {
-        const habit = await Habit.findById(parseInt(req.params.habitId))
-        await Habit.destroy()
+        const habit = await Habit.findById(parseInt(req.params.id))
+        console.log(habit)
+        await habit.destroy()
         res.status(204).json('Habit Deleted')
 
     } catch (err) {
