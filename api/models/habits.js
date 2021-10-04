@@ -10,6 +10,18 @@ class Habit {
         this.habitType = data.habitType;
     }
 
+    static get all() {
+        return new Promise (async (resolve, reject) => {
+            try{
+                const result = await db.query('select * from habits')
+                const habits = result.rows.map(h => ({habitName: h.habitName}))
+            }
+            catch(err) {
+
+            }
+        })
+    }
+
     static findById(userId){
         return new Promise (async (resolve, reject) => {
             try {
