@@ -14,6 +14,6 @@ server.use('/users', usersRoutes)
 server.use('/habits', habitsRoutes)
 server.use('/auth', authRoutes);
 
-server.get('/', (req, res) => {res.send("Welcome!")});
+server.get('/', (req, res) => {res.send("Welcome to Clockwork!")});
 
 module.exports = server;

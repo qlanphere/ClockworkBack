@@ -14,9 +14,12 @@ class Habit {
         return new Promise (async (resolve, reject) => {
             try{
                 const result = await db.query('select * from habits;');
-                const habits = result.rows.map(h => ({habitName: h.habitName}));
+                // console.log(result.rows[0])
+                const habits = result.rows.map(h => new Habit(h));
+                resolve(habits)
             }
             catch(err) {
+                reject("Could not find habits")
 
 
             }
@@ -26,7 +29,7 @@ class Habit {
     static findById(habitId){
         return new Promise (async (resolve, reject) => {
             try {
-                let habitData = await db.query('select * from habits where id =$1;', [habitId]);
+                let habitData = await db.query('select * from habits where habitId =$1;', [habitId]);
                 let habit = new Habit(habitData.rows[0]);
                 resolve(habit)
             } catch (err) {
@@ -35,13 +38,18 @@ class Habit {
         });
     };
     // create(habitName) just using the name for now for simplicity and to check if it works 
-    static create(name){
+    static create(data){
         return new Promise (async (resolve, reject) => {
             try {
-                console.log(name);
+<<<<<<< HEAD
+                // console.log();
+                let habitData = await db.query('insert into habits (habitName, frequency, startDate, targetDate, habitType) values ($1,$2,$3,$4,$5) returning *;', [data.habitName, data.frequency,data.startDate,data.targetDate,data.habitType]);
+                // console.log(habitData.rows[0]);
+=======
                 let habitData = await db.query('insert into habits (habitName) values ($1) returning *;', [name.habitName]);
-                console.log(habitData)
+>>>>>>> 1d4fec9af435a59b5da15a183c64025e9385d700
                 let newHabit = new Habit(habitData.rows[0]); 
+                console.log(newHabit)
                 resolve(newHabit)
             } catch (err) {
                 reject("couldn't create Habit")
