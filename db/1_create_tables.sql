@@ -23,5 +23,5 @@ CREATE TABLE habits (
     startDate date,
     targetDate date,
     habitType boolean,
-    userId INT;
-)
+    userId INT
+);

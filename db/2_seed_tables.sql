@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 INSERT INTO users (userName, passwordHash, badgePoints )
 VALUES 
     (1,'PujaT','abc',0),
@@ -22,3 +23,23 @@ VALUES
 --     habitType boolean,
 --     userId INT
 -- )
+=======
+INSERT INTO habits (habitName, frequency, startDate, targetDate, habitType, userId)
+VALUES
+(
+    'water',
+    8,
+    2021-10-04,
+    2021-10-05,
+    true,
+    1
+),
+(
+    'sleep',
+    12,
+    2021-10-04,
+    2021-10-05,
+    true,
+    1
+);
+>>>>>>> c5c9fc8bebb3bcb4047d7dccfbaad20e3111fc20
