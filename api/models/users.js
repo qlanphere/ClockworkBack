@@ -36,6 +36,7 @@ class User {
         })
     };
 
+
     static findByUserName(name) {
         return new Promise(async (resolve, reject) => {
             try {
