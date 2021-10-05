@@ -19,6 +19,16 @@ async function showIndex(req, res) {
     }
 };
 
+async function findUserByName(req, res) {
+    try {
+        console.log(req.params)
+        const user = await User.findByUserName(req.params)
+        res.status(200).json(user)
+    } catch {
+
+    }
+}
+
 // async function create (req, res) {
 //     try {
 //         const user = await User.create(req.body);
@@ -28,4 +38,4 @@ async function showIndex(req, res) {
 //     }
 // };
 
-module.exports = { show,showIndex };
+module.exports = { show,showIndex, findUserByName };

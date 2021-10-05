@@ -1,4 +1,5 @@
 const Habit = require('../models/habits.js')
+const User = require('../models/users.js')
 
 
 async function index(req, res){
@@ -15,8 +16,12 @@ async function index(req, res){
 
 async function getHabits(req, res) {
     try {
-        const habits = await Habit.findUserHabits(parseInt(req.params.id))
-        console.log(habits)
+        //console.log('hi')
+        //const id = await User.findByUserName(req.params.user)
+        //console.log(id, req.params)
+        console.log('hhh')
+        const habits = await Habit.findUserHabits(req.params.name)
+        
         res.json(habits)
     } catch(err) {
         res.status(404).send(err)
