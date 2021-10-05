@@ -43,7 +43,7 @@ class Habit {
     static create(data){
         return new Promise (async (resolve, reject) => {
             try {
-                let habitData = await db.query('insert into habits (habitName) values ($1) returning *;', [name.habitName]);
+                let habitData = await db.query('insert into habits (habitName, frequency, startDate, targetDate, habitType) values ($1,$2,$3,$4,$5) returning *;', [data.habitName, data.frequency, data.startDate, data.targetDate, data.habitType]);
                 let newHabit = new Habit(habitData.rows[0]); 
                 
                 resolve(newHabit)
