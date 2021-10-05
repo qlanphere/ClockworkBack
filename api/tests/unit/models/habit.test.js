@@ -15,28 +15,28 @@ describe('habits', () => {
 
     describe('all', () => {
         test('it resolves with users on a successful db query', async () => {
-            let habitData = [
-                {
-                    habitId: 1,
-                    habitName: "water",
-                    frequency: 8,
-                    startDate: "2021-10-05",
-                    targetDate: "2021-10-06",
-                    habitType: "true"
-                },
-                {
-                    habitId: 2,
-                    habitName: "smoking",
-                    frequency: 0,
-                    startDate: "2021-10-05",
-                    targetDate: "2021-12-05",
-                    habitType: "false"
-                }
-            ];
+            // let habitData = [
+            //     {
+            //         habitId: 1,
+            //         habitName: "water",
+            //         frequency: 8,
+            //         startDate: "2021-10-05",
+            //         targetDate: "2021-10-06",
+            //         habitType: "true"
+            //     },
+            //     {
+            //         habitId: 2,
+            //         habitName: "smoking",
+            //         frequency: 0,
+            //         startDate: "2021-10-05",
+            //         targetDate: "2021-12-05",
+            //         habitType: "false"
+            //     }
+            // ];
             jest.spyOn(db, 'query')
-                .mockResolvedValueOnce({rows: habitData});
+                .mockResolvedValueOnce({rows: [{}, {}, {}]});
             const result = await Habit.all;
-            expect(result).toHaveLength(2);
+            expect(result).toHaveLength(3);
         })
     })
 
