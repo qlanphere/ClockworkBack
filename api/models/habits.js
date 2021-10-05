@@ -8,13 +8,15 @@ class Habit {
         this.startDate = data.startdate;
         this.targetDate = data.targetdate;
         this.habitType = data.habittype;
+        this.userId = data.userid;
+        this.username = { userName: data.username, path: `/users/${data.userid}` };
+        this.badgepoints = {badgePoints: data.badgepoints, path: `/users/${data.userid}`}
     }
 
     static get all() {
         return new Promise (async (resolve, reject) => {
             try{
-                const result = await db.query('select * from habits;')
-             //console.log(result)
+                const result = await db.query('select * from habits;') 
                 const habits = result.rows.map(h => new Habit(h));
                 resolve(habits)
             }
@@ -22,6 +24,22 @@ class Habit {
                 reject("Could not find habits")
 
 
+            }
+        })
+    }
+
+    static findUserHabits(id) {
+        return new Promise (async (resolve, reject) => {
+            try {
+                const result = await db.query(`SELECT habits.*, users.userName AS userName, users.badgePoints AS badgePoints
+                                            FROM habits JOIN users
+                                            ON habits.userId = users.userId 
+                                            WHERE habits.userId=$1`, [ id ])
+                console.log(result.rows)
+                const habits = result.rows.map(u => new Habit(u));
+                resolve(habits)
+            } catch(err) {
+                reject("Couldn't find habits")
             }
         })
     }
@@ -43,7 +61,7 @@ class Habit {
     static create(data){
         return new Promise (async (resolve, reject) => {
             try {
-                let habitData = await db.query('insert into habits (habitName, frequency, startDate, targetDate, habitType) values ($1,$2,$3,$4,$5) returning *;', [data.habitName, data.frequency, data.startDate, data.targetDate, data.habitType]);
+                let habitData = await db.query('insert into habits (habitName, frequency, startDate, targetDate, habitType, userId) values ($1,$2,$3,$4,$5,$6) returning *;', [data.habitName, data.frequency, data.startDate, data.targetDate, data.habitType, data.userId]);
                 let newHabit = new Habit(habitData.rows[0]); 
                 
                 resolve(newHabit)

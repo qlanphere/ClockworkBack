@@ -3,12 +3,23 @@ const Habit = require('../models/habits.js')
 
 async function index(req, res){
     try{
+        console.log(req.body)
         const habits = await Habit.all;
         res.json({habits});
     }
     catch (err) {
         res.status(500).json([err])
 
+    }
+}
+
+async function getHabits(req, res) {
+    try {
+        const habits = await Habit.findUserHabits(parseInt(req.params.id))
+        console.log(habits)
+        res.json(habits)
+    } catch(err) {
+        res.status(404).send(err)
     }
 }
 
@@ -57,4 +68,4 @@ async function destroy (req, res) {
     }
 }
 
-module.exports = { index, show, create, update, destroy}
+module.exports = { index, show, create, update, destroy, getHabits}

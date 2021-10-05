@@ -5,7 +5,7 @@ class User {
         this.userId = data.userid;
         this.userName = data.username;
         this.passwordHash = data.passwordhash;
-        this.badgePoints = data.badgeoints;
+        this.badgePoints = data.badgepoints;
     }
 
     static get all() {
@@ -41,6 +41,7 @@ class User {
             try {
                 console.log("user" + data.userName);
                 console.log("pass" + data.passwordHash);
+                
                 let result = await db.query("INSERT INTO users (userName,passwordHash,badgePoints) VALUES ($1, $2, $3) RETURNING *;", [data.userName, data.passwordHash,0]);
                 let newUser = new User(result.rows[0]);
                 resolve(newUser);

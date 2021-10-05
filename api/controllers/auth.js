@@ -11,8 +11,11 @@ async function create(req, res)  {
         const salt = await bcrypt.genSalt();
         const hashed = await bcrypt.hash(req.body.password, salt);
         console.log("hello" + hashed);
+        //if (!User.findById(req.body)) {
         await User.create({...req.body, passwordHash: hashed});
         res.status(201).json({message: "User has been created successfully"});
+    //}
+    //else(err)
     } catch (err) {
         res.status(500).json({err});
     }
