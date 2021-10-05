@@ -3,7 +3,7 @@ const fs = require('fs');
 const { Pool } = require('pg');
 const app = require('../../server');
 
-const testSeed = fs.readFileSync(path.join(__dirname, '/test_seeds.sql')).toString();
+const testSeed = fs.readFileSync(__dirname + '/test_seeds.sql').toString(); 
 
 const resetTestDB = () => {
     return new Promise (async (resolve, reject) => {
