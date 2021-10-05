@@ -51,12 +51,9 @@ class User {
     static create(data) {
         return new Promise(async (resolve, reject) => {
             try {
-<<<<<<< HEAD
-=======
                 console.log("user" + data.userName);
                 console.log("pass" + data.passwordHash);
                 
->>>>>>> a43926d639ae5ee4c23ea1f4e5b764944855a5d8
                 let result = await db.query("INSERT INTO users (userName,passwordHash,badgePoints) VALUES ($1, $2, $3) RETURNING *;", [data.userName, data.passwordHash,0]);
                 let newUser = new User(result.rows[0]);
                 resolve(newUser);

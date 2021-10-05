@@ -6,7 +6,6 @@ SECRET =
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-<<<<<<< HEAD
 const User = require("../models/users");
 
 async function create(req, res) {
@@ -41,21 +40,6 @@ async function checkLogin(req, res) {
       jwt.sign(payload, SECRET, sendToken);
     } else {
       throw new Error("User could not be authenticated");
-=======
-async function create(req, res)  {
-    try {
-        console.log("hello")
-        const salt = await bcrypt.genSalt();
-        const hashed = await bcrypt.hash(req.body.password, salt);
-        console.log("hello" + hashed);
-        //if (!User.findById(req.body)) {
-        await User.create({...req.body, passwordHash: hashed});
-        res.status(201).json({message: "User has been created successfully"});
-    //}
-    //else(err)
-    } catch (err) {
-        res.status(500).json({err});
->>>>>>> a43926d639ae5ee4c23ea1f4e5b764944855a5d8
     }
   } catch (err) {
     console.log(err);
