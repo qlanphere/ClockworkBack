@@ -14,7 +14,7 @@ class Habit {
         return new Promise (async (resolve, reject) => {
             try{
                 const result = await db.query('select * from habits;')
-                // console.log(result)
+             console.log(result)
                 const habits = result.rows.map(h => new Habit(h));
                 resolve(habits)
             }

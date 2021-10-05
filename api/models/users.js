@@ -5,7 +5,7 @@ class User {
         this.userId = data.userid;
         this.userName = data.username;
         this.passwordHash = data.passwordhash;
-        this.badgePoints = data.badgepoints;
+        this.badgePoints = data.badgeoints;
     }
 
     static get all() {

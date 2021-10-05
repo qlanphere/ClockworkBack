@@ -13,8 +13,8 @@
     "nodemon": "^2.0.13"
   },
   "scripts": {
-    "start": "nodemon index.js",
-    "startDev": "nodemon index.js",
+    "start": "nodemon api/index.js",
+    "startDev": "nodemon api/index.js",
     "test": "jest --setupfiles ./tests/integration/config.js --watchAll --runInBand --verbose",
     "coverage": "jest --coverage"
   },
