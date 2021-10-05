@@ -2,7 +2,7 @@ const db = require('../dbConfig');
 
 class Habit {
     constructor(data) {
-        this.habitId = data.habitid;
+        this.habitid = data.habitid;
         this.habitName = data.habitname;
         this.frequency = data.frequency;
         this.startDate = data.startdate;
@@ -14,7 +14,7 @@ class Habit {
         return new Promise (async (resolve, reject) => {
             try{
                 const result = await db.query('select * from habits;')
-             console.log(result)
+             //console.log(result)
                 const habits = result.rows.map(h => new Habit(h));
                 resolve(habits)
             }
@@ -53,11 +53,24 @@ class Habit {
         });
     };
 
+    static update(frequency, targetDate, habitid){
+        return new Promise (async (resolve, reject) => {
+            try {
+                console.log(habitid)
+                let updatedHabitData = await db.query('UPDATE habits SET frequency = $1, targetDate = $2 WHERE habitid = $3 returning *;', [ frequency, targetDate, habitid]);
+                let updatedHabit = new Habit(updatedHabitData.rows[0]);
+                
+                resolve(updatedHabit)
+            }catch (err) {
+            }
+        })
+    }
+
     destroy(){
         return new Promise (async (resolve, reject) => {
-            console.log(this.habitId)
+            console.log(this.habitid)
             try {
-                await db.query('delete from habits where habitId = $1;', [this.habitId]);
+                await db.query('delete from habits where habitId = $1;', [this.habitid]);
                 resolve('Habit was deleted')
             } catch (err) {
                 reject("couldn't delete habit")

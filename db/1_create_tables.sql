@@ -17,7 +17,7 @@ CREATE TABLE users (
 -- );
 
 CREATE TABLE habits (
-    habitId serial PRIMARY KEY,
+    habitid serial PRIMARY KEY,
     habitName varchar(50),
     frequency int,
     startDate date,
