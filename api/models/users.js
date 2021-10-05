@@ -36,11 +36,21 @@ class User {
         })
     };
 
+    static findByUserName(name) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                let userData = await db.query("SELECT * FROM users WHERE userName = $1;", [name]);
+                let user = new User(userData.rows[0]);
+                resolve(user);           
+            } catch (err) {
+                reject("User not found");
+            }
+        })
+    };
+
     static create(data) {
         return new Promise(async (resolve, reject) => {
             try {
-                console.log("user" + data.userName);
-                console.log("pass" + data.passwordHash);
                 let result = await db.query("INSERT INTO users (userName,passwordHash,badgePoints) VALUES ($1, $2, $3) RETURNING *;", [data.userName, data.passwordHash,0]);
                 let newUser = new User(result.rows[0]);
                 resolve(newUser);

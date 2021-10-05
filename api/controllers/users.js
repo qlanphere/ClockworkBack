@@ -2,7 +2,7 @@ const User = require('../models/users')
 
 async function show(req, res) {
     try {
-        console.log("hello inside show")
+        //console.log("hello inside show")
         const user = await User.all;
         res.status(200).json(user);
     } catch (err) {

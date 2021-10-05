@@ -16,6 +16,7 @@ async function index(req, res){
 async function show(req, res) {
     try {
         const habit = await Habit.findById(parseInt(req.params.id));
+        console.log(habit.length);
         res.json(habit)
     } catch (err) {
         res.status(404).send(err)
@@ -24,7 +25,7 @@ async function show(req, res) {
 
 async function create (req, res) {
     try {
-        const habit = await Habit.create(req.body);
+        const habit = await Habit.create(req.body,parseInt(req.params.id));
         res.status(201).json(habit)
     } catch (err) {
         res.status(422).json({err})
