@@ -1,0 +1,29 @@
+services:
+  api:
+    container_name: habit_dev_api
+    ports: 
+      - 3000:3000
+    environment: 
+      - PGUSER=futureproof
+      - PGHOST=db
+      - PGPASSWORD=habitpass
+      - PGDATABASE=habits
+      - PGPORT=5432
+      - NODE_ENV=development
+    depends_on:
+      - db
+    command: bash -c "npm install && npm run seedDev && npm run startDev"
+
+  db:
+    container_name: habit_dev_db
+    volumes:
+      - "dbdata:/var/lib/postgresql/data"
+    environment: 
+      - POSTGRES_DB=habits
+      - POSTGRES_USER=futureproof
+      - POSTGRES_PASSWORD=habitpass
+volumes:
+  dbdata:
+networks: 
+  default:
+    name: habit_app_dev

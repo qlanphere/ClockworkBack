@@ -3,12 +3,23 @@ const Habit = require('../models/habits.js')
 
 async function index(req, res){
     try{
+        console.log(req.body)
         const habits = await Habit.all;
         res.json({habits});
     }
     catch (err) {
         res.status(500).json([err])
 
+    }
+}
+
+async function getHabits(req, res) {
+    try {
+        const habits = await Habit.findUserHabits(parseInt(req.params.id))
+        console.log(habits)
+        res.json(habits)
+    } catch(err) {
+        res.status(404).send(err)
     }
 }
 
@@ -32,10 +43,24 @@ async function create (req, res) {
     }
 }
 
+async function update (req,res) {
+    try {
+        //console.log(req.body)
+        const habit = await Habit.findById(parseInt(req.params.id))
+        console.log(habit.habitid)
+        const updatedHabit = await Habit.update(req.body.frequency, req.body.targetDate, habit.habitid)
+        
+        //res.json('succesfully updated')
+        res.json({habit: updatedHabit})
+    } catch (err) {
+        res.status(500).json({err})
+    }
+}
+
 async function destroy (req, res) {
     try {
         const habit = await Habit.findById(parseInt(req.params.id))
-        console.log(habit)
+        //console.log(habit)
         await habit.destroy()
         res.status(204).json('Habit Deleted')
 
@@ -44,4 +69,4 @@ async function destroy (req, res) {
     }
 }
 
-module.exports = { index, show, create, destroy}
+module.exports = { index, show, create, update, destroy, getHabits}
