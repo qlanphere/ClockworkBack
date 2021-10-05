@@ -15,8 +15,9 @@
   "scripts": {
     "start": "nodemon api/index.js",
     "startDev": "nodemon api/index.js",
-    "test": "jest --setupfiles ./tests/integration/config.js --watchAll --runInBand --verbose",
-    "coverage": "jest --coverage"
+    "test": "jest --setupFiles ./api/tests/integration/config.js --watchAll --runInBand --verbose",
+    "coverage": "jest --coverage",
+    "seedDev": "node api/dbConfig/seedDev.js"
   },
   "name": "api",
   "version": "1.0.0",
