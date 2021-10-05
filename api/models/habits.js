@@ -8,13 +8,15 @@ class Habit {
         this.startDate = data.startdate;
         this.targetDate = data.targetdate;
         this.habitType = data.habittype;
+        this.userId = data.userid;
+        this.username = { userName: data.username, path: `/users/${data.userid}` };
+        this.badgepoints = {badgePoints: data.badgepoints, path: `/users/${data.userid}`}
     }
 
     static get all() {
         return new Promise (async (resolve, reject) => {
             try{
-                const result = await db.query('select * from habits;')
-             //console.log(result)
+                const result = await db.query('select * from habits;') 
                 const habits = result.rows.map(h => new Habit(h));
                 resolve(habits)
             }
@@ -26,11 +28,27 @@ class Habit {
         })
     }
 
+    static findUserHabits(id) {
+        return new Promise (async (resolve, reject) => {
+            try {
+                const result = await db.query(`SELECT habits.*, users.userName AS userName, users.badgePoints AS badgePoints
+                                            FROM habits JOIN users
+                                            ON habits.userId = users.userId 
+                                            WHERE habits.userId=$1`, [ id ])
+                console.log(result.rows)
+                const habits = result.rows.map(u => new Habit(u));
+                resolve(habits)
+            } catch(err) {
+                reject("Couldn't find habits")
+            }
+        })
+    }
+
     static findById(id){
         return new Promise (async (resolve, reject) => {
             
             try {
-                let habitData = await db.query('select * from habits where habitId =$1;', [id]);
+                let habitData = await db.query('select * from habits where userId =$1;', [id]);
                 
                 let habit = new Habit(habitData.rows[0]);
                 resolve(habit)
@@ -40,12 +58,14 @@ class Habit {
         });
     };
     // create(habitName) just using the name for now for simplicity and to check if it works 
-    static create(data){
+    static create(data,id){
         return new Promise (async (resolve, reject) => {
+            console.log("id",+ id)
+            console.log(typeof id);
             try {
-                let habitData = await db.query('insert into habits (habitName, frequency, startDate, targetDate, habitType) values ($1,$2,$3,$4,$5) returning *;', [data.habitName, data.frequency, data.startDate, data.targetDate, data.habitType]);
+                let habitData = await db.query('insert into habits (habitName, frequency, startDate, targetDate, habitType, userId) values ($1,$2,$3,$4,$5,$6) returning *;', [data.habitName, data.frequency, data.startDate, data.targetDate, data.habitType, data.userId]);
                 let newHabit = new Habit(habitData.rows[0]); 
-                
+                //console.log("newhabit id" + newHabit[userId])
                 resolve(newHabit)
             } catch (err) {
                 reject("couldn't create Habit")
