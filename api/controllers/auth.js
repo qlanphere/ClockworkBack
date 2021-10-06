@@ -1,7 +1,9 @@
-require("dotenv").config();
+require("dotenv").config({path: __dirname + '../.env'});
 
-SECRET =
-  "f560bf0c02e7fa51af64064111a8ab8c40cebc967b849e60f7bdb6bcc25aa82d2e50846f15cfd8e1057a3cb7658962c12cf8967bb7f62b2671f24836ceaac6df";
+
+
+//SECRET =
+  //"f560bf0c02e7fa51af64064111a8ab8c40cebc967b849e60f7bdb6bcc25aa82d2e50846f15cfd8e1057a3cb7658962c12cf8967bb7f62b2671f24836ceaac6df";
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -37,7 +39,7 @@ async function checkLogin(req, res) {
           token: "Bearer " + token,
         });
       };
-      jwt.sign(payload, SECRET, sendToken);
+      jwt.sign(payload,process.env.SECRET, sendToken);
     } else {
       throw new Error("User could not be authenticated");
     }

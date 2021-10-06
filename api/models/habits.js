@@ -28,14 +28,14 @@ class Habit {
         })
     }
 
-    static findUserHabits(username) {
+    static findUserHabits(userId) {
         return new Promise (async (resolve, reject) => {
             try {
                 console.log(username)
                 const result = await db.query(`SELECT habits.*, users.userName AS userName, users.badgePoints AS badgePoints
                                             FROM habits JOIN users
                                             ON habits.userId = users.userId
-                                            WHERE users.userName=$1;`, [ username ])
+                                            WHERE habits.userId=$1;`, [ userId ])
                 console.log(result.rows)
                 const habits = result.rows.map(u => new Habit(u));
                 resolve(habits)
@@ -64,7 +64,7 @@ class Habit {
             console.log("id",+ id)
             console.log(typeof id);
             try {
-                let habitData = await db.query('insert into habits (habitName, frequency, startDate, targetDate, habitType, userId) values ($1,$2,$3,$4,$5,$6) returning *;', [data.habitName, data.frequency, data.startDate, data.targetDate, data.habitType, data.userId]);
+                let habitData = await db.query('insert into habits (habitName, frequency, startDate, targetDate, habitType, userId) values ($1,$2,$3,$4,$5,$6) returning *;', [data.habitName, data.frequency, data.startDate, data.targetDate, data.habitType,id]);
                 let newHabit = new Habit(habitData.rows[0]); 
                 //console.log("newhabit id" + newHabit[userId])
                 resolve(newHabit)

@@ -20,7 +20,7 @@ async function getHabits(req, res) {
         //const id = await User.findByUserName(req.params.user)
         //console.log(id, req.params)
         console.log('hhh')
-        const habits = await Habit.findUserHabits(req.params.name)
+        const habits = await Habit.findUserHabits(req.params.id)
         
         res.json(habits)
     } catch(err) {
