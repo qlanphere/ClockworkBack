@@ -5,7 +5,7 @@ const newToken = require('../middleware/auth')
 
 router.get('/', habitsController.index)
 router.get('/:id', habitsController.show)
-router.get('/user/:name', habitsController.getHabits)
+router.get('/user/:id', habitsController.getHabits)
 router.post('/', habitsController.create)
 router.patch('/:id',habitsController.update)
 router.delete('/:id',habitsController.destroy)
