@@ -32,19 +32,8 @@ async function show(req, res) {
   }
 }
 
-<<<<<<< HEAD
 // async function create (req, res) {
 //     try {
-=======
-async function create (req, res) {
-    try {
-        const habit = await Habit.create(req.body.parseInt(req.params.id));
-        res.status(201).json(habit)
-    } catch (err) {
-        res.status(422).json({err})
-    }
-}
->>>>>>> 03943c34497a057e2bbe1b2ba2b5d419c0fe8e46
 
 //         const habit = await Habit.create(req.body.parseInt(req.params.id));
 //         res.status(201).json(habit)
