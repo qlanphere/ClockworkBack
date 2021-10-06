@@ -58,14 +58,13 @@ class Habit {
         });
     };
     // create(habitName) just using the name for now for simplicity and to check if it works 
-    static create(data,id){
+    static create(data){
         return new Promise (async (resolve, reject) => {
-            console.log("id",+ id)
-            console.log(typeof id);
+            // console.log("id",+ id)
+            // console.log(typeof id);
             try {
-                let habitData = await db.query('insert into habits (habitName, frequency, startDate, targetDate, habitType, userId) values ($1,$2,$3,$4,$5,$6) returning *;', [data.habitName, data.frequency, data.startDate, data.targetDate, data.habitType,id]);
+                let habitData = await db.query('insert into habits (habitName, frequency, startDate, targetDate, habitType, userId) values ($1,$2,$3,$4,$5,$6) returning *;', [data.habitName, data.frequency, data.startDate, data.targetDate, data.habitType,data.userId]);
                 let newHabit = new Habit(habitData.rows[0]); 
-                //console.log("newhabit id" + newHabit[userId])
                 resolve(newHabit)
             } catch (err) {
                 reject("couldn't create Habit")
