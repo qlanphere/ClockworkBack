@@ -29,6 +29,19 @@ async function findUserByName(req, res) {
     }
 }
 
+async function updateBadgeById(req,res){
+    try {
+        const user = await User.findById(parseInt(parseInt(req.params.id)))
+        const updatedUser = await user.update();
+        res.json({user: updatedUser})
+    } catch (err) {
+        res.status(500).json({err})
+    }
+}
+
+
+
+
 // async function create (req, res) {
 //     try {
 //         const user = await User.create(req.body);
@@ -38,4 +51,4 @@ async function findUserByName(req, res) {
 //     }
 // };
 
-module.exports = { show,showIndex, findUserByName };
+module.exports = { show,showIndex, findUserByName ,updateBadgeById};

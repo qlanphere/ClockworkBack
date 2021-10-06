@@ -79,7 +79,6 @@ class Habit {
                 console.log(habitid)
                 let updatedHabitData = await db.query('UPDATE habits SET frequency = $1, targetDate = $2 WHERE habitid = $3 returning *;', [ frequency, targetDate, habitid]);
                 let updatedHabit = new Habit(updatedHabitData.rows[0]);
-                
                 resolve(updatedHabit)
             }catch (err) {
             }
