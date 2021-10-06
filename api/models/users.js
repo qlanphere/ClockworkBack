@@ -63,6 +63,18 @@ class User {
             }
         })
     }
+
+    update() {
+        return new Promise(async (resolve, reject) => {
+            try {
+                console.log("userid: " + this.userId)
+                let result = await db.query("UPDATE users SET badgePoints = badgePoints + $1 where userId = $2;", [1,this.userId]);
+                resolve('User was updated')
+            } catch (err) {
+                reject("couldn't update the user")
+            }
+        })  
+    }
 }
 
 module.exports = User;
