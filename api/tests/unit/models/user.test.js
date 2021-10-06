@@ -15,7 +15,7 @@ describe('users', () => {
 
     describe('findById', () => {
         test('it resolves with user on successful db query', async () => {
-            let userData = {id: 1, userName: 'testUser1', badgePoints: 0};
+            let userData = {userId: 1, userName: 'testUser1', badgePoints: 0};
             jest.spyOn(db, 'query')
                 .mockResolvedValueOnce({rows: [userData]});
             const result = await User.findById(1);
