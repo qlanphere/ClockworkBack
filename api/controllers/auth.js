@@ -1,9 +1,4 @@
-require("dotenv").config({path: __dirname + '../.env'});
-
-
-
-//SECRET =
-  //"f560bf0c02e7fa51af64064111a8ab8c40cebc967b849e60f7bdb6bcc25aa82d2e50846f15cfd8e1057a3cb7658962c12cf8967bb7f62b2671f24836ceaac6df";
+require("dotenv").config({path: __dirname + '/./../.env'});
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -29,7 +24,8 @@ async function checkLogin(req, res) {
     }
     const authed = bcrypt.compare(req.body.password, user.passwordHash);
     if (!!authed) {
-      const payload = { username: user.userName };
+      console.log(user.userId);
+      const payload = { username: user.userName, id: user.userId };
       const sendToken = (err, token) => {
         if (err) {
           throw new Error("Error in token generation");
@@ -39,7 +35,7 @@ async function checkLogin(req, res) {
           token: "Bearer " + token,
         });
       };
-      jwt.sign(payload,process.env.SECRET, sendToken);
+      jwt.sign(payload, process.env.SECRET, sendToken);
     } else {
       throw new Error("User could not be authenticated");
     }
