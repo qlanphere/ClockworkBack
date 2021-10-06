@@ -1,5 +1,4 @@
 require("dotenv").config({path: __dirname + '/./../.env'});
-
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
