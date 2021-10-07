@@ -24,11 +24,12 @@ VALUES
     1
 );
 
-INSERT INTO frequencytable (habitid, frequencyType, frequency, streak)
+INSERT INTO frequencytable (habitid, frequencyType, frequency, streak, freqStreak)
 VALUES
 (
     1,
     'daily',
     3,
+    0,
     0
 );

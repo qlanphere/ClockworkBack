@@ -12,6 +12,7 @@ class Habit {
         this.username = { userName: data.username, path: `/users/${data.userid}` };
         this.badgepoints = {badgePoints: data.badgepoints, path: `/users/${data.userid}`};
         this.streak = data.streak;
+        this.freqStreak = data.freqstreak;
         //
     }
 

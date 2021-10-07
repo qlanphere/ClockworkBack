@@ -9,7 +9,8 @@ async function updateFreq(req, res) {
       const updatedFreq = await Freq.update(
         habit.habitid,
         req.body.lastDoneDate,
-        req.body.streak
+        req.body.streak,
+        req.body.freqStreak
       );
       
   
@@ -19,6 +20,17 @@ async function updateFreq(req, res) {
       res.status(500).json({ err });
     }
   }
+
+  async function show(req, res) {
+    try {
+      const freq = await Freq.findById(parseInt(req.params.id));
+      
+      res.json(freq);
+    } catch (err) {
+      res.status(404).send(err);
+    }
+  }
+  
   
   async function indexFreqs(req, res) {
     try {
@@ -30,5 +42,5 @@ async function updateFreq(req, res) {
   }
 
   module.exports = {
-      updateFreq, indexFreqs
+      updateFreq, indexFreqs, show
   }
