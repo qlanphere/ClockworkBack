@@ -1,5 +1,4 @@
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS loginTable;
 DROP TABLE IF EXISTS habits;
 
 CREATE TABLE users (
@@ -8,13 +7,6 @@ CREATE TABLE users (
     passwordHash varchar(255),
     badgePoints int
 );
-
--- CREATE TABLE loginTable (
---     loginId serial PRIMARY KEY,
---     userName varchar(50) UNIQUE,
---     passwordHash varchar(50),
---     userId INT
--- );
 
 CREATE TABLE habits (
     habitid serial PRIMARY KEY,

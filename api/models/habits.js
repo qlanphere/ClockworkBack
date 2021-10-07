@@ -13,21 +13,6 @@ class Habit {
         this.badgepoints = {badgePoints: data.badgepoints, path: `/users/${data.userid}`}
     }
 
-    static get all() {
-        return new Promise (async (resolve, reject) => {
-            try{
-                const result = await db.query('select * from habits;') 
-                const habits = result.rows.map(h => new Habit(h));
-                resolve(habits)
-            }
-            catch(err) {
-                reject("Could not find habits")
-
-
-            }
-        })
-    }
-
     static findUserHabits(id) {
         return new Promise (async (resolve, reject) => {
             try {
@@ -60,10 +45,8 @@ class Habit {
     // create(habitName) just using the name for now for simplicity and to check if it works 
     static create(data){
         return new Promise (async (resolve, reject) => {
-            // console.log("id",+ id)
-            // console.log(typeof id);
             try {
-                let habitData = await db.query('insert into habits (habitName, frequency, startDate, targetDate, habitType, userId) values ($1,$2,CURRENT_DATE,$4,$5,$6) returning *;', [data.habitName, data.frequency, data.targetDate, data.habitType,data.userId]);
+                let habitData = await db.query('insert into habits (habitName, frequency, startDate, targetDate, habitType, userId) values ($1,$2,CURRENT_DATE,$3,$4,$5) returning *;', [data.habitName, data.frequency, data.targetDate, data.habitType,data.userId]);
                 let newHabit = new Habit(habitData.rows[0]); 
                 resolve(newHabit)
             } catch (err) {
@@ -75,18 +58,17 @@ class Habit {
     static update(frequency, targetDate, habitid){
         return new Promise (async (resolve, reject) => {
             try {
-                console.log(habitid)
                 let updatedHabitData = await db.query('UPDATE habits SET frequency = $1, targetDate = $2 WHERE habitid = $3 returning *;', [ frequency, targetDate, habitid]);
                 let updatedHabit = new Habit(updatedHabitData.rows[0]);
                 resolve(updatedHabit)
             }catch (err) {
+                reject("couldn't update habit")
             }
         })
     }
 
     destroy(){
         return new Promise (async (resolve, reject) => {
-            console.log(this.habitid)
             try {
                 await db.query('delete from habits where habitId = $1;', [this.habitid]);
                 resolve('Habit was deleted')

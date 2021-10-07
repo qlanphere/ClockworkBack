@@ -2,7 +2,6 @@ const User = require('../models/users')
 
 async function show(req, res) {
     try {
-        //console.log("hello inside show")
         const user = await User.all;
         res.status(200).json(user);
     } catch (err) {
@@ -19,38 +18,14 @@ async function showIndex(req, res) {
     }
 };
 
-async function findUserByName(req, res) {
-    try {
-        console.log(req.params)
-        const user = await User.findByUserName(req.params)
-        res.status(200).json(user)
-    } catch {
-
-    }
-}
-
 async function updateBadgeById(req,res){
     try {
         const user = await User.findById(parseInt(req.params.id))
-        // console.log(user)
-        const updatedUser = await user.update();
-        console.log(updatedUser)
-        res.json(updatedUser)
+        await user.update();
+        res.status(204).json({message: "updated the points"})
     } catch (err) {
         res.status(500).json({err})
     }
 }
 
-
-
-
-// async function create (req, res) {
-//     try {
-//         const user = await User.create(req.body);
-//         res.status(201).json(user);
-//     } catch(err) {
-//         res.status(422).json({err});
-//     }
-// };
-
-module.exports = { show,showIndex, findUserByName ,updateBadgeById};
+module.exports = { show,showIndex ,updateBadgeById};

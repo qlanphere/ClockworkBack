@@ -11,16 +11,6 @@ describe('habit controller', () => {
 
     afterAll(() => jest.resetAllMocks());
 
-    describe('index', () => {
-        test('it returns habits with 200 status code', async () => {
-            let testHabits = ['h1', 'h2'];
-            jest.spyOn(Habit, 'all', 'get')
-                .mockResolvedValue(testHabits);
-            await habitController.index(null, mockRes);
-            expect(mockJson).toHaveBeenCalledWith(testHabits)
-        })
-    });
-
     describe('show', () => {
         test('it returns habit with a 200 status code', async () => {
             let testData = {habitId: 5, habitName: "testHabit", frequency: 5, startDate: "2021-10-05", targetDate: "2021-10-06", habitType: "true"};
@@ -54,4 +44,30 @@ describe('habit controller', () => {
             expect(mockStatus).toHaveBeenCalledWith(204);
         })
     });
+    //fails
+    describe('getHabits', () => {
+        test('it returns habits on a 200 status code', async () => {
+            let testHabits = [
+                {habitId: 6, habitName: "testHabit1", frequency: 5, startDate: "2021-10-05", targetDate: "2021-10-06", habitType: "true", userId: 1},
+                {habitId: 7, habitName: "testHabit2", frequency: 8, startDate: "2021-10-05", targetDate: "2021-10-06", habitType: "true", userId: 1}
+            ];
+            jest.spyOn(Habit, 'getHabits')
+                .mockResolvedValue(testHabits);
+            const mockReq = { params: {id: 1}};
+            await habitController.getHabits(mockReq, mockRes);
+            expect(mockStatus).toHaveBeenCalledWith(200);
+            expect(mockJson).toHaveBeenCalledWith(h => new Habit(h))
+        })
+    })
+
+    describe('update', () => {
+        test('it updates a habit with a 204 code', async () => {
+            let testData = {habitId: 6, habitName: "testHabit1", frequency: 5, startDate: "2021-10-05", targetDate: "2021-10-06", habitType: "true", userId: 1};
+            jest.spyOn(Habit, 'update')
+                .mockResolvedValue({habitId: 6, habitName: "testHabit1", frequency: 8, startDate: "2021-10-05", targetDate: "2021-10-10", habitType: "true", userId: 1});
+            const mockReq = {params: {id: 6}, body: {frequency: 8, targetDate: "2021-10-10"}};
+            await habitController.update(mockReq, mockRes);
+            expect(mockStatus).toHaveBeenCalledWith(204)
+        })
+    })
 });

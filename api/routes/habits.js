@@ -3,7 +3,6 @@ const router = express.Router();
 const habitsController = require('../controllers/habits.js')
 const newToken = require('../middleware/auth')
 
-router.get('/',newToken.verifyToken, habitsController.index)
 router.get('/:id',newToken.verifyToken, habitsController.show)
 router.get('/user/:id', newToken.verifyToken, habitsController.getHabits)
 router.post('/', newToken.verifyToken,habitsController.create)

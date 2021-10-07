@@ -5,8 +5,6 @@ const userController = require('../controllers/users');
 
 router.get('/', userController.show);
 router.get('/:id',userController.showIndex);
-router.get('/:username', userController.findUserByName);
-router.patch('/:id', userController.updateBadgeById)
-// router.post('/', userController.create);
+router.patch('/:id', userController.updateBadgeById);
 
 module.exports = router;

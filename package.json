@@ -15,8 +15,9 @@
   "scripts": {
     "start": "node api/index.js",
     "startDev": "nodemon api/index.js",
-    "test": "jest --setupFiles ./api/tests/integration/config.js --watchAll --runInBand --verbose",
-    "coverage": "jest --coverage",
+    "test": "jest --setupFiles ./api/tests/integration/config.js --watchAll --runInBand --verbose --detectOpenHandles",
+    "unitTests": "jest --testPathPattern=/unit --watchAll --verbose --detectOpenHandles",
+    "coverage": "jest --setupFiles ./api/tests/integration/config.js --coverage --verbose --detectOpenHandles",
     "seedDev": "node api/dbConfig/seedDev.js"
   },
   "name": "api",
