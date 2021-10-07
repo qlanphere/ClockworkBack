@@ -48,7 +48,7 @@ class Habit {
         return new Promise (async (resolve, reject) => {
             
             try {
-                let habitData = await db.query('select * from habits where userId =$1;', [id]);
+                let habitData = await db.query('select * from habits where habitid =$1;', [id]);
                 
                 let habit = new Habit(habitData.rows[0]);
                 resolve(habit)
