@@ -10,7 +10,9 @@ class Habit {
         this.habitType = data.habittype;
         this.userId = data.userid;
         this.username = { userName: data.username, path: `/users/${data.userid}` };
-        this.badgepoints = {badgePoints: data.badgepoints, path: `/users/${data.userid}`}
+        this.badgepoints = {badgePoints: data.badgepoints, path: `/users/${data.userid}`};
+        this.streak = data.streak;
+        //
     }
 
     static get all() {
@@ -32,9 +34,11 @@ class Habit {
         return new Promise (async (resolve, reject) => {
             try {
                 
-                const result = await db.query(`SELECT habits.*, users.userName AS userName, users.badgePoints AS badgePoints
+                const result = await db.query(`SELECT habits.*, users.userName AS userName, users.badgePoints AS badgePoints, frequencytable.streak
                                             FROM habits JOIN users
                                             ON habits.userId = users.userId
+                                            JOIN frequencytable
+                                            ON habits.habitid = frequencytable.habitid
                                             WHERE habits.userId=$1;`, [ id ])
                 const habits = result.rows.map(u => new Habit(u));
                 resolve(habits)
