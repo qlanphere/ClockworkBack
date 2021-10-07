@@ -10,16 +10,20 @@ class Habit {
         this.habitType = data.habittype;
         this.userId = data.userid;
         this.username = { userName: data.username, path: `/users/${data.userid}` };
-        this.badgepoints = {badgePoints: data.badgepoints, path: `/users/${data.userid}`}
+        this.badgepoints = {badgePoints: data.badgepoints, path: `/users/${data.userid}`};
+        this.streak = data.streak;
+        //
     }
 
     static findUserHabits(id) {
         return new Promise (async (resolve, reject) => {
             try {
                 
-                const result = await db.query(`SELECT habits.*, users.userName AS userName, users.badgePoints AS badgePoints
+                const result = await db.query(`SELECT habits.*, users.userName AS userName, users.badgePoints AS badgePoints, frequencytable.streak
                                             FROM habits JOIN users
                                             ON habits.userId = users.userId
+                                            JOIN frequencytable
+                                            ON habits.habitid = frequencytable.habitid
                                             WHERE habits.userId=$1;`, [ id ])
                 const habits = result.rows.map(u => new Habit(u));
                 resolve(habits)
@@ -46,7 +50,7 @@ class Habit {
     static create(data){
         return new Promise (async (resolve, reject) => {
             try {
-                let habitData = await db.query('insert into habits (habitName, frequency, startDate, targetDate, habitType, userId) values ($1,$2,CURRENT_DATE,$3,$4,$5) returning *;', [data.habitName, data.frequency, data.targetDate, data.habitType,data.userId]);
+                let habitData = await db.query('insert into habits (habitName, frequency, startDate, targetDate, habitType, userId) values ($1,$2,$3,$4,$5,$6) returning *;', [data.habitName, data.frequency, data.startDate, data.targetDate, data.habitType,data.userId]);
                 let newHabit = new Habit(habitData.rows[0]); 
                 resolve(newHabit)
             } catch (err) {
