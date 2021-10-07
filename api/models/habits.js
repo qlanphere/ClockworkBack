@@ -63,8 +63,11 @@ class Habit {
             // console.log("id",+ id)
             // console.log(typeof id);
             try {
-                let habitData = await db.query('insert into habits (habitName, frequency, startDate, targetDate, habitType, userId) values ($1,$2,CURRENT_DATE,$4,$5,$6) returning *;', [data.habitName, data.frequency, data.targetDate, data.habitType,data.userId]);
+                let habitData = await db.query('insert into habits (habitName, frequency, startDate, targetDate, habitType, userId) values ($1,$2,$3,$4,$5,$6) returning *;', [data.habitName, data.frequency, data.startDate, data.targetDate, data.habitType,data.userId]);
                 let newHabit = new Habit(habitData.rows[0]); 
+
+
+                
                 resolve(newHabit)
             } catch (err) {
                 reject("couldn't create Habit")

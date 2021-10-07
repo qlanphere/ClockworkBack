@@ -23,3 +23,11 @@ VALUES
     true,
     1
 );
+
+INSERT INTO frequencytable (habitid, frequencyType, frequency)
+VALUES
+(
+    1,
+    'daily',
+    3
+);

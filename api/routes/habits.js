@@ -10,4 +10,6 @@ router.post('/', newToken.verifyToken,habitsController.create)
 router.patch('/:id',newToken.verifyToken,habitsController.update)
 router.delete('/:id',newToken.verifyToken,habitsController.destroy)
 
+
+
 module.exports = router;

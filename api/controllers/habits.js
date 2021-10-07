@@ -1,15 +1,18 @@
 const Habit = require("../models/habits.js");
 const User = require("../models/users.js");
+const Freq = require("../models/frequency.js");
 
 async function index(req, res) {
   try {
-    console.log(req.body);
+
     const habits = await Habit.all;
     res.json({ habits });
   } catch (err) {
     res.status(500).json([err]);
   }
 }
+
+
 
 async function getHabits(req, res) {
   try {
@@ -45,6 +48,9 @@ async function show(req, res) {
 async function create(req, res) {
   try {
     const habit = await Habit.create(req.body);
+    //console.log(req.body)
+    const frequency = await Freq.create(req.body, habit.habitid)
+
     res.status(201).json(habit);
   } catch (err) {
     res.status(422).json({ err });
@@ -69,6 +75,8 @@ async function update(req, res) {
   }
 }
 
+
+
 async function destroy(req, res) {
   try {
     const habit = await Habit.findById(parseInt(req.params.id));
@@ -79,5 +87,7 @@ async function destroy(req, res) {
     res.status(500).json({ err });
   }
 }
+
+
 
 module.exports = { index, show, create, update, destroy, getHabits };

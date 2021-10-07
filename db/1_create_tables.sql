@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS loginTable;
 DROP TABLE IF EXISTS habits;
+DROP TABLE IF EXISTS frequencytable;
 
 CREATE TABLE users (
     userId serial PRIMARY KEY,
@@ -9,12 +10,12 @@ CREATE TABLE users (
     badgePoints int
 );
 
--- CREATE TABLE loginTable (
---     loginId serial PRIMARY KEY,
---     userName varchar(50) UNIQUE,
---     passwordHash varchar(50),
---     userId INT
--- );
+CREATE TABLE frequencytable (
+    habitid int,
+    frequencyType varchar(50),
+    frequency int,
+    lastDoneDate date
+);
 
 CREATE TABLE habits (
     habitid serial PRIMARY KEY,
