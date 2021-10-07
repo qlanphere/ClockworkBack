@@ -6,6 +6,7 @@ class Freq {
         this.frequencyType = data.frequencytype;
         this.frequency = data.frequency;
         this.lastDoneDate = data.lastdonedate;
+        this.streak = data.streak;
     }
 
     static get all() {
@@ -41,7 +42,7 @@ class Freq {
             return new Promise (async (resolve, reject) => {
                 try {
                     console.log(id, data.frequencyType, data.frequency)
-                let freqData = await db.query('insert into frequencytable (habitid, frequencyType, frequency) values ($1,$2,$3) returning *;', [id, data.frequencyType, data.frequency]); 
+                let freqData = await db.query('insert into frequencytable (habitid, frequencyType, frequency, streak) values ($1,$2,$3,$4) returning *;', [id, data.frequencyType, data.frequency,0]); 
                 let newFreq = new Freq(freqData.rows[0])
 
                 resolve(newFreq)
@@ -52,14 +53,21 @@ class Freq {
             })
         }
 
-        static update(habitid, lastDoneDate){
+        static update(habitid, lastDoneDate, streak){
             return new Promise (async (resolve, reject) => {
                 try {
+                    if (streak==0) {
                     
-                    let updatedFreqData = await db.query('UPDATE frequencytable SET lastDoneDate = $1 WHERE habitid = $2 returning *;', [lastDoneDate, habitid]);
+                    let updatedFreqData = await db.query('UPDATE frequencytable SET lastDoneDate = $1, streak = $2 WHERE habitid = $3 returning *;', [null, streak, habitid]);
                     let updatedFreq = new Freq(updatedFreqData.rows[0]);
 
                     resolve(updatedFreq)
+                    } else {
+                        let updatedFreqData = await db.query('UPDATE frequencytable SET lastDoneDate = $1, streak = streak + 1 WHERE habitid = $2 returning *;', [lastDoneDate, habitid]);
+                        let updatedFreq = new Freq(updatedFreqData.rows[0]);
+
+                    resolve(updatedFreq)
+                    }
                 } catch (err) {
                     reject("couldn't update Frequency")
                 }

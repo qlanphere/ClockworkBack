@@ -8,7 +8,8 @@ async function updateFreq(req, res) {
     console.log(req.body)
       const updatedFreq = await Freq.update(
         habit.habitid,
-        req.body.lastDoneDate
+        req.body.lastDoneDate,
+        req.body.streak
       );
       
   
