@@ -52,8 +52,8 @@ class User {
     static create(data) {
         return new Promise(async (resolve, reject) => {
             try {
-                console.log("user" + data.userName);
-                console.log("pass" + data.passwordHash);
+                // console.log("user" + data.userName);
+                // console.log("pass" + data.passwordHash);
                 
                 let result = await db.query("INSERT INTO users (userName,passwordHash,badgePoints) VALUES ($1, $2, $3) RETURNING *;", [data.userName, data.passwordHash,0]);
                 let newUser = new User(result.rows[0]);
@@ -62,6 +62,20 @@ class User {
                 reject("User could not be created")
             }
         })
+    }
+
+    update() {
+        return new Promise(async (resolve, reject) => {
+            try {
+                // console.log("userid: " + this.userId)
+                let result = await db.query("UPDATE users SET badgePoints = badgePoints + $1 where userId = $2;", [1,this.userId]);
+                let newUser = new User(result.rows[0]);
+                
+                resolve(newUser)
+            } catch (err) {
+                reject("couldn't update the user")
+            }
+        })  
     }
 }
 
