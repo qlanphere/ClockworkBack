@@ -1,6 +1,6 @@
 const User = require('../../../models/users');
 
-jest.mock('../../../models/users');
+// jest.mock('../../../models/users');
 
 const pg = require('pg');
 jest.mock('pg');
@@ -11,50 +11,58 @@ const db = require('../../../dbConfig/init');
 describe('users', () => {
     beforeEach(() => jest.clearAllMocks());
 
-    afterEach(() => jest.resetAllMocks());
+    afterAll(() => jest.resetAllMocks());
 
     describe('findById', () => {
         test('it resolves with user on successful db query', async () => {
-            let userData = {userId: 1, userName: 'testUser1', badgePoints: 0};
+            let testData = {userId: 3, userName: 'user1', passwordHash: "pass123", badgePoints: 0};
             jest.spyOn(db, 'query')
-                .mockResolvedValueOnce({rows: [userData]});
-            const result = await User.findById(1);
+                .mockResolvedValueOnce({rows: [testData]});
+            const result = await User.findById(3);
             expect(result).toBeInstanceOf(User);
         })
-    });
+    })
 
     
     describe('create', () => {
         test('it resolves with a user on successful db query', async () => {
-            let userData = {id: 2, userName: 'testUser2', badgePoints: 5};
+            let testData = {userId: 1, userName: 'testUser2', passwordHash: "pass123", badgePoints: 0};
             jest.spyOn(db, 'query')
-                .mockResolvedValueOnce({rows: [userData]});
-                const result = await User.create(userData);
+                .mockResolvedValueOnce({rows: [testData]});
+                const result = await User.create(testData);
                 expect(result).toBeInstanceOf(User);
         })
     });
 
     describe('all', () => {
         test('it resolves with users on a successful db query', async () => {
-            let userData = [
-                {
-                    id: 3,
-                    userName: "testUser3",
-                    passwordHash: "abcdefghijklmnopqrstuvwxyz",
-                    badgePoints: 0
-                },
-                {
-                    id: 4,
-                    userName: "testUser4",
-                    passwordHash: "1234567890",
-                    badgePoints: 4
-                }
-            ];
+            let testData = [{}, {}]
             jest.spyOn(db, 'query')
-                .mockResolvedValueOnce({rows: userData});
+                .mockResolvedValueOnce({rows: testData});
             const result = await User.all;
             expect(result).toHaveLength(2);
         })
     });
+
+    describe('findByUserName', () => {
+        test('it resolves with a user on a succesful db query', async () => {
+            let testData = {userId: 3, userName: 'user3', passwordHash: "pass123", badgePoints: 0};
+            jest.spyOn(db, 'query')
+                .mockResolvedValueOnce({rows: [testData]});
+            const result = await User.findByUserName(testData.userName);
+            expect(result).toBeInstanceOf(User);
+        })
+    });
+
+    //fails
+    describe('update', () => {
+        test('it updates a user on a successful db query', async () => {
+            let testData = {userId: 4, userName: 'user4', passwordHash: "pass123", badgePoints: 0};
+            jest.spyOn(db, 'query')
+                .mockResolvedValueOnce({rows: [testData]});
+                const result = await User.update();
+                expect(result).toBeInstanceOf(User);
+        })
+    })
 
 });

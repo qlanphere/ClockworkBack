@@ -12,10 +12,7 @@ async function updateFreq(req, res) {
         req.body.streak,
         req.body.freqStreak
       );
-      
-  
-      res.json({ freq: updatedFreq});
-  
+      res.status(200).json({ freq: updatedFreq});
     } catch (err) {
       res.status(500).json({ err });
     }
@@ -35,7 +32,7 @@ async function updateFreq(req, res) {
   async function indexFreqs(req, res) {
     try {
       const freqs = await Freq.all;
-      res.json({ freqs });
+      res.status(200).json({ freqs });
     } catch (err) {
       res.status(500).json([err]);
     }

@@ -1,5 +1,4 @@
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS loginTable;
 DROP TABLE IF EXISTS habits;
 DROP TABLE IF EXISTS frequencytable;
 

@@ -1,4 +1,4 @@
-TRUNCATE users, habits RESTART IDENTITY;
+TRUNCATE  TABLE users, habits, frequencytable RESTART IDENTITY;
 
 INSERT INTO users (userName, passwordHash, badgePoints) 
 VALUES 
@@ -22,4 +22,19 @@ VALUES
     '2021-12-31',
     false,
     2
+);
+
+INSERT INTO frequencytable (habitId, frequencyType, frequency, streak)
+VALUES
+(
+    1,
+    'daily',
+    3,
+    0
+),
+(
+    2,
+    'weekly',
+    5,
+    0
 );

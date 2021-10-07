@@ -23,7 +23,6 @@ async function checkLogin(req, res) {
     }
     const authed = bcrypt.compare(req.body.password, user.passwordHash);
     if (!!authed) {
-      console.log(user.userId);
       const payload = { username: user.userName, id: user.userId };
       const sendToken = (err, token) => {
         if (err) {
@@ -39,7 +38,6 @@ async function checkLogin(req, res) {
       throw new Error("User could not be authenticated");
     }
   } catch (err) {
-    console.log(err);
     res.status(401).json({ err });
   }
 }

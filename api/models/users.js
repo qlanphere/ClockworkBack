@@ -11,11 +11,8 @@ class User {
     static get all() {
         return new Promise (async (resolve, reject) => {
             try{
-                console.log("hello all")
                 const result = await db.query('select * from users;');
-                console.log("middle of all function" + result.rows[0]);
                 const user = result.rows.map(u => new User(u));
-                console.log(user)
                 resolve(user);
             }
             catch(err) {
@@ -52,9 +49,6 @@ class User {
     static create(data) {
         return new Promise(async (resolve, reject) => {
             try {
-                // console.log("user" + data.userName);
-                // console.log("pass" + data.passwordHash);
-                
                 let result = await db.query("INSERT INTO users (userName,passwordHash,badgePoints) VALUES ($1, $2, $3) RETURNING *;", [data.userName, data.passwordHash,0]);
                 let newUser = new User(result.rows[0]);
                 resolve(newUser);
@@ -67,10 +61,8 @@ class User {
     update() {
         return new Promise(async (resolve, reject) => {
             try {
-                // console.log("userid: " + this.userId)
                 let result = await db.query("UPDATE users SET badgePoints = badgePoints + $1 where userId = $2;", [1,this.userId]);
                 let newUser = new User(result.rows[0]);
-                
                 resolve(newUser)
             } catch (err) {
                 reject("couldn't update the user")
