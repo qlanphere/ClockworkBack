@@ -1,4 +1,4 @@
-TRUNCATE  TABLE users, habits, frequencytable RESTART IDENTITY;
+TRUNCATE  TABLE users, habits RESTART IDENTITY;
 
 INSERT INTO users (userName, passwordHash, badgePoints) 
 VALUES 
@@ -24,17 +24,17 @@ VALUES
     2
 );
 
-INSERT INTO frequencytable (habitId, frequencyType, frequency, streak)
-VALUES
-(
-    1,
-    'daily',
-    3,
-    0
-),
-(
-    2,
-    'weekly',
-    5,
-    0
-);
+-- INSERT INTO frequencytable (habitId, frequencyType, frequency, streak)
+-- VALUES
+-- (
+--     1,
+--     'daily',
+--     3,
+--     0
+-- ),
+-- (
+--     2,
+--     'weekly',
+--     5,
+--     0
+-- );
