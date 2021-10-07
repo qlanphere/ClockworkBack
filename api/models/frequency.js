@@ -74,7 +74,7 @@ class Freq {
                     }
                     
                     else if (freqStreak>0) {
-                        let updatedFreqData = await db.query('UPDATE frequencytable SET lastDoneDate = $1, freqStreak = freqStreak + 1, streak = $2 WHERE habitid = $3 returning *;', [lastDoneDate, streak, habitid]);
+                        let updatedFreqData = await db.query('UPDATE frequencytable SET lastDoneDate = $1, freqStreak = freqStreak + 1 WHERE habitid = $2 returning *;', [lastDoneDate, habitid]);
                         let updatedFreq = new Freq(updatedFreqData.rows[0]);
 
                     resolve(updatedFreq)
