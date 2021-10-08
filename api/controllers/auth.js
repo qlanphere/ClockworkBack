@@ -21,8 +21,9 @@ async function checkLogin(req, res) {
     if (!user) {
       throw new Error("No user found");
     }
-    const authed = bcrypt.compare(req.body.password, user.passwordHash);
-    if (!!authed) {
+    const authed = await bcrypt.compare(req.body.password, user.passwordHash);
+     console.log(authed)
+    if (authed) {
       const payload = { username: user.userName, id: user.userId };
       const sendToken = (err, token) => {
         if (err) {
