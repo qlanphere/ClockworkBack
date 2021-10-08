@@ -59,7 +59,7 @@ class Freq {
                     console.log(streak, freqStreak)
                     if (streak==0 && freqStreak==0) {
                     
-                    let updatedFreqData = await db.query('UPDATE frequencytable SET lastDoneDate = $1, streak = $2, freqStreak = $3 WHERE habitid = $4 returning *;', [null, streak,freqStreak, habitid]);
+                    let updatedFreqData = await db.query('UPDATE frequencytable SET lastDoneDate = $1, streak = $2, freqStreak = $3 WHERE habitid = $4 returning *;', [lastDoneDate, streak,freqStreak, habitid]);
                     let updatedFreq = new Freq(updatedFreqData.rows[0]);
 
                     
