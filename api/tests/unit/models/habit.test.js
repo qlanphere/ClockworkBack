@@ -25,7 +25,7 @@ describe('habits', () => {
 
     describe('create', () => {
         test('it resolves with a habit on successful db query', async () => {
-            let habitData = {habitId: 4, habitName: 'walkl', frequency: 1, targetDate: "2021-10-06", habitType: "true"};
+            let habitData = {habitId: 4, habitName: 'walkl', frequency: 1, targetDate: "2021-10-06", habitType: "true", userId: 1};
             jest.spyOn(db, 'query')
                 .mockResolvedValueOnce({rows: [habitData]});
                 const result = await Habit.create(habitData);
