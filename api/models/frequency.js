@@ -42,7 +42,6 @@ class Freq {
         static create(data, id){
             return new Promise (async (resolve, reject) => {
                 try {
-                    console.log(id, data.frequencyType, data.frequency)
                 let freqData = await db.query('insert into frequencytable (habitid, frequencyType, frequency, streak, freqStreak) values ($1,$2,$3,$4,$5) returning *;', [id, data.frequencyType, data.frequency,0,0]); 
                 let newFreq = new Freq(freqData.rows[0])
 
