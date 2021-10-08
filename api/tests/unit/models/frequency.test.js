@@ -45,7 +45,7 @@ describe('frequency', () => {
             let freqData = {habitId: 3, frequencyType: 'daily', frequency: 4, streak: 0};
             jest.spyOn(db, 'query')
                 .mockResolvedValueOnce({rows: [{habitId: 3, frequencyType: 'daily', frequency: 4, lastDoneDate: "2021-10-10", streak: 1}]});
-            const result = await Freq.update(3, "2021-10-10", 1);
+            const result = await Freq.update(3, "2021-10-10", 1, 1);
             expect(result.streak).toBe(1);
         })
     });
