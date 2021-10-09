@@ -8,7 +8,7 @@ class Freq {
         this.periodStart = data.periodstart;
         this.streak = data.streak;
         this.freqStreak = data.freqstreak
-        this.streakAdded = data.streakAdded
+        this.streakAdded = data.streakadded
     }
 
     static get all() {
