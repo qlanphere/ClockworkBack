@@ -54,7 +54,7 @@ class Freq {
             })
         }
 
-        static update(habitid, periodStart, streak, freqStreak, periodStart){
+        static update(habitid, periodStart, streak, freqStreak, streakAdded){
             return new Promise (async (resolve, reject) => {
                 try {
                     console.log(streak, freqStreak)
