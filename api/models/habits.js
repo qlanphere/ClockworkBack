@@ -14,6 +14,7 @@ class Habit {
         this.streak = data.streak;
         this.freqStreak = data.freqstreak;
         this.lastDoneDate = data.lastdonedate;
+        this.streakAdded = data.streakAdded;
         //
     }
 

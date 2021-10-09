@@ -8,9 +8,10 @@ async function updateFreq(req, res) {
     console.log(req.body)
       const updatedFreq = await Freq.update(
         habit.habitid,
-        req.body.lastDoneDate,
+        req.body.periodStart,
         req.body.streak,
-        req.body.freqStreak
+        req.body.freqStreak,
+        req.body.streakAdded
       );
       res.status(200).json({ freq: updatedFreq});
     } catch (err) {

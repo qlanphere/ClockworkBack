@@ -13,9 +13,10 @@ CREATE TABLE frequencytable (
     habitid int,
     frequencyType varchar(50),
     frequency int,
-    lastDoneDate date,
+    periodStart date,
     streak int,
-    freqStreak int
+    freqStreak int,
+    streakAdded boolean
 );
 
 CREATE TABLE habits (
