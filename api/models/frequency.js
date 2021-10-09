@@ -54,7 +54,7 @@ class Freq {
             })
         }
 
-        static update(habitid, periodStart, streak, freqStreak){
+        static update(habitid, periodStart, streak, freqStreak, periodStart){
             return new Promise (async (resolve, reject) => {
                 try {
                     console.log(streak, freqStreak)
@@ -67,14 +67,14 @@ class Freq {
                     resolve(updatedFreq)
 
                     } else if (streak > 0 && freqStreak == 0) {
-                        let updatedFreqData = await db.query('UPDATE frequencytable SET periodStart = $1, freqStreak = $2, streakAdded = $3, streak = streak + 1 WHERE habitid = $4 returning *;', [periodStart, freqStreak, streakAdded, habitid]);
+                        let updatedFreqData = await db.query('UPDATE frequencytable SET freqStreak = $1, streakAdded = $2, streak = streak + 1 WHERE habitid = $3 returning *;', [freqStreak, streakAdded, habitid]);
                         let updatedFreq = new Freq(updatedFreqData.rows[0]);
 
                         resolve(updatedFreq)
                     }
                     
                     else if (freqStreak>0) {
-                        let updatedFreqData = await db.query('UPDATE frequencytable SET periodStart = $1, freqStreak = freqStreak + 1 WHERE habitid = $2 returning *;', [periodStart, habitid]);
+                        let updatedFreqData = await db.query('UPDATE frequencytable SET freqStreak = freqStreak + 1 WHERE habitid = $1 returning *;', [habitid]);
                         let updatedFreq = new Freq(updatedFreqData.rows[0]);
 
                     resolve(updatedFreq)
